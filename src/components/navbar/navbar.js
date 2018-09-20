@@ -21,8 +21,7 @@ firebase.initializeApp(config);
 class Navbar extends Component {
 
     state = {
-        menu: [],
-        loading: true
+        menu: []
     }
 
     componentWillMount(){
@@ -30,7 +29,7 @@ class Navbar extends Component {
         const data = rootRef.child("menu");
         data.on('value', snap => {
             this.setState({menu: snap.val()}, ()=>{
-                this.setState({ loading:false });
+                this.props.loadingAction();
                 if(window.localStorage.getItem("loading") === null){
                     setTimeout(() => {
                         this.props.hideMenuAction();
@@ -45,8 +44,8 @@ class Navbar extends Component {
     }
 
     render(){
-        const { menu, loading } = this.state;
-        const { hideMenu } = this.props;
+        const { menu } = this.state;
+        const { hideMenu, loading } = this.props;
 
         if(loading){
             return(
@@ -73,6 +72,7 @@ class Navbar extends Component {
 
 const mapStateToProps = state => ({
     hideMenu: state.globalReducer.hideMenu,
+    loading: state.globalReducer.loading
 });
 
 const mapDispatchToProps = dispatch => ({

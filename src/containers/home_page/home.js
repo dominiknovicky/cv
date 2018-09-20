@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
+import Wrapper from '../../components/basic/styles';
+import Header from '../../components/HeaderComponent/header';
+
 
 class Home extends Component {
     render(){
         return(
-            <div>
-                <div>home</div>
-            </div>
+            <Wrapper>
+                <Header title="About" />
+            </Wrapper>
         )
     }
 }
 
-export default Home;
+const mapStateToProps = state => ({
+    loading: state.globalReducer.loading
+});
+
+export default connect(mapStateToProps)(Home);
