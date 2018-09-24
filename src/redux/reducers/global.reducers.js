@@ -1,4 +1,4 @@
-import GlobalConsts from '../consts/global.consts';
+import GlobalConst from '../consts/global.const';
 
 const initialState = {
     loading: true,
@@ -7,10 +7,10 @@ const initialState = {
 
 function globalReducer(state = initialState, action = {}){
     switch(action.type){
-        case GlobalConsts.LOADING:
+        case GlobalConst.LOADING:
             return { ...state, loading: false}
 
-        case GlobalConsts.HIDE_MENU:
+        case GlobalConst.HIDE_MENU:
             return { ...state, hideMenu: false}
 
         default: return state;

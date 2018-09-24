@@ -14,6 +14,7 @@ export const Wrapper = styled.div`
     align-items: center;
     height: ${({ menu }) => ("100"/menu)+"vh"};
     padding: 0 2em;
+    transition: all .1s linear;
 `;
 
 export const IconWrapper = styled.div`
@@ -55,5 +56,5 @@ export const StyledLink = styled(NavLink)`
     }
     color: darkGray;
     transition: all .1s linear;
-
+    border-bottom: 1px solid #d7d7d7;
 `;

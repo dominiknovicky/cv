@@ -3,20 +3,9 @@ import NavbarItem from '../navbar_item/navbar_item';
 import { Wrapper, Logo } from './navbar_styles';
 import { connect } from "react-redux";
 import { withRouter } from "react-router";
-import * as firebase from 'firebase';
 import SmallLoader from '../small_loader/small_loader';
-import GlobalActions from '../../redux/actions/global.actions';
-
-
-const config = {
-    apiKey: "AIzaSyBO0oNHKSTdWQwe---waYn3rG__S5JsBKk",
-    authDomain: "cvcv-fe126.firebaseapp.com",
-    databaseURL: "https://cvcv-fe126.firebaseio.com",
-    projectId: "cvcv-fe126",
-    storageBucket: "cvcv-fe126.appspot.com",
-    messagingSenderId: "576547964299"
-};
-firebase.initializeApp(config);
+import GlobalAction from '../../redux/actions/global.action';
+import MenuAction from '../../redux/actions/menu.action'
 
 class Navbar extends Component {
 
@@ -25,27 +14,20 @@ class Navbar extends Component {
     }
 
     componentWillMount(){
-        const rootRef = firebase.database().ref().child('data');
-        const data = rootRef.child("menu");
-        data.on('value', snap => {
-            this.setState({menu: snap.val()}, ()=>{
-                this.props.loadingAction();
-                if(window.localStorage.getItem("loading") === null){
-                    setTimeout(() => {
-                        this.props.hideMenuAction();
-                        window.localStorage.setItem("loading", false);
-                    }, 1000)
-                }
-                else{
-                    this.props.hideMenuAction();
-                }
-            });
-        });
+        this.props.fetchData();
+        if(window.localStorage.getItem("loading") === null){
+            setTimeout(() => {
+                this.props.hideMenuAction();
+                window.localStorage.setItem("loading", false);
+            }, 2000)
+        }
+        else{
+            this.props.hideMenuAction();
+        }
     }
 
     render(){
-        const { menu } = this.state;
-        const { hideMenu, loading } = this.props;
+        const { hideMenu, loading, menu } = this.props;
 
         if(loading){
             return(
@@ -72,12 +54,14 @@ class Navbar extends Component {
 
 const mapStateToProps = state => ({
     hideMenu: state.globalReducer.hideMenu,
-    loading: state.globalReducer.loading
+    loading: state.globalReducer.loading,
+    menu: state.menuReducer
 });
 
 const mapDispatchToProps = dispatch => ({
-    loadingAction: () => { dispatch(GlobalActions.loadingAction()) },
-    hideMenuAction: () => { dispatch(GlobalActions.hideMenuAction()) }
+    loadingAction: () => { dispatch(GlobalAction.loadingAction()) },
+    hideMenuAction: () => { dispatch(GlobalAction.hideMenuAction()) },
+    fetchData: () => { dispatch(MenuAction.fetchData()) }
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Navbar));
