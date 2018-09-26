@@ -15,25 +15,25 @@ export const Wrapper = styled.div`
     height: ${({ menu }) => ("100"/menu)+"vh"};
     padding: 0 2em;
     transition: all .1s linear;
-`;
-
-export const IconWrapper = styled.div`
+    `;
+    
+    export const IconWrapper = styled.div`
     @media (max-width: 700px) {
         width: auto;
     }
     width: 27.5px;
-`;
-
-export const Icon = styled(FontAwesomeIcon)`
+    `;
+    
+    export const Icon = styled(FontAwesomeIcon)`
     @media (max-width: 700px) {
         width: 100%;
         font-size: 2.2em;
     }
     font-size: 1.25em;
     display: flex;
-`;
-
-export const Item = styled.div`
+    `;
+    
+    export const Item = styled.div`
     @media (max-width: 700px) {
         display: none;
     }
@@ -42,19 +42,20 @@ export const Item = styled.div`
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: -1px;
-`;
-
-export const StyledLink = styled(NavLink)`
+    `;
+    
+    export const StyledLink = styled(NavLink)`
     &:hover{
-        color:rgb(60,60,60);
         text-decoration: none;
+        color: rgb(60,60,60);
     }
     &:focus{
         color:rgb(60,60,60);
         text-decoration: none;
         outline: 0;
     }
-    color: darkGray;
+    // color: darkGray;
     transition: all .1s linear;
     border-bottom: 1px solid #d7d7d7;
-`;
+    color: ${({color}) => color};
+    `;

@@ -5,7 +5,8 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router";
 import SmallLoader from '../small_loader/small_loader';
 import GlobalAction from '../../redux/actions/global.action';
-import MenuAction from '../../redux/actions/menu.action'
+import MenuAction from '../../redux/actions/menu.action';
+import DataAction from '../../redux/actions/data.action';
 
 class Navbar extends Component {
 
@@ -15,11 +16,12 @@ class Navbar extends Component {
 
     componentWillMount(){
         this.props.fetchData();
+        this.props.getData();
         if(window.localStorage.getItem("loading") === null){
             setTimeout(() => {
                 this.props.hideMenuAction();
                 window.localStorage.setItem("loading", false);
-            }, 2000)
+            }, 1500)
         }
         else{
             this.props.hideMenuAction();
@@ -45,7 +47,9 @@ class Navbar extends Component {
                         href={"/"+item.name}
                         icon={item.icon}
                         menu={menu.length+1}
-                    />
+                        color={item.color}
+                    >
+                    </NavbarItem>
                 ))}
             </Wrapper>
         )
@@ -61,7 +65,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     loadingAction: () => { dispatch(GlobalAction.loadingAction()) },
     hideMenuAction: () => { dispatch(GlobalAction.hideMenuAction()) },
-    fetchData: () => { dispatch(MenuAction.fetchData()) }
+    fetchData: () => { dispatch(MenuAction.fetchData()) },
+    getData: () => { dispatch(DataAction.fetchData()) }
+
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Navbar));

@@ -1,7 +1,7 @@
 import MenuConst from '../consts/menu.const';
-import * as firebase from 'firebase';
 import GlobalConst from '../consts/global.const';
-
+import firebase from 'firebase/app';
+import 'firebase/database';
 
 const config = {
     apiKey: "AIzaSyBO0oNHKSTdWQwe---waYn3rG__S5JsBKk",

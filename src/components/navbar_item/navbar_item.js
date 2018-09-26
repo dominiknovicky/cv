@@ -7,10 +7,11 @@ const isActive = {
     color: "rgb(60,60,60)"
 }
 
-const NavbarItem = ({ title, icon, href, menu }) => (
+const NavbarItem = ({ title, icon, href, menu, color, click }) => (
     <StyledLink
         to={href}
         activeStyle={isActive}
+        color={color}
     >
         <Wrapper menu={menu}>
             <IconWrapper>
@@ -25,7 +26,8 @@ NavbarItem.propTypes = {
     title: PropTypes.string.isRequired,
     icon: PropTypes.string.isRequired,
     href: PropTypes.string.isRequired,
-    menu: PropTypes.number.isRequired
+    menu: PropTypes.number.isRequired,
+    color: PropTypes.string.isRequired
 };
 
 export default NavbarItem;
